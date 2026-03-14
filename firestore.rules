@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /public_stats/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /waitlist/{docId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+    match /referrals/{docId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+    match /plan_interest/{docId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+    match /page_events/{docId} {
+      allow read, create: if request.auth != null;
+      allow update, delete: if false;
+    }
+    match /referral_payouts/{docId} {
+      allow read, write: if false;
+    }
+  }
+}
